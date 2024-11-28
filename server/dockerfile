@@ -1,0 +1,23 @@
+# Utiliser l'image de base Node.js
+FROM node:lts-alpine
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /usr/src/app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste des fichiers de l'application
+COPY . .
+
+# Exposer le port 9000
+EXPOSE 9000
+
+# Définir la variable d'environnement pour MongoDB
+ENV MONGO_URI="mongodb://localhost:27017/mern"
+
+# Démarrer l'application
+CMD ["npm", "start"]
